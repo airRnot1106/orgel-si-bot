@@ -1,0 +1,7 @@
+# config
+.eslintrc.cjs
+.prettierrc
+tsconfig.json
+
+# build dir
+**/dist/
