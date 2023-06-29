@@ -23,7 +23,6 @@ export const settings = new Hono()
           const res = createApiActionResponse400(result.error.message);
           return c.json(res, res.status);
         }
-        return c.text('');
       }
     ),
     async (c) => {
