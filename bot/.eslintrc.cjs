@@ -25,6 +25,8 @@ module.exports = {
     },
   },
   rules: {
+    /* eslint */
+    'consistent-return': 'off',
     /* typescript */
     '@typescript-eslint/no-unused-vars': [
       'warn',

@@ -5,6 +5,7 @@
     "module": "commonjs",
     "outDir": "dist",
     "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": false,
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
