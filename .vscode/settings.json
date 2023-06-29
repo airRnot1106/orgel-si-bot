@@ -26,5 +26,11 @@
   "javascript.format.enable": false,
   "typescript.format.enable": false,
 
-  "eslint.workingDirectories": [{ "mode": "auto" }]
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+
+  "cSpell.words": ["hono", "orgel"]
 }
