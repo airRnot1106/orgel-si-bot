@@ -5,3 +5,6 @@ tsconfig.json
 
 # build dir
 **/dist/
+
+# generated dir
+**/generated/

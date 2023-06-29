@@ -1,7 +1,11 @@
-import type { LanguageType } from '@/schema/generated/prisma';
+import type { LanguageType, Setting } from '@/schema/generated/prisma';
 import type { ApiAction } from '@/types/api';
 
 import prisma from '@/libs/prisma';
+import {
+  createApiActionResponse200,
+  createApiActionResponse500,
+} from '@/utils/api';
 
 export const fetchSettings = async (): Promise<
   ApiAction<{ language: LanguageType }>
@@ -33,5 +37,47 @@ export const fetchSettings = async (): Promise<
       status,
       error,
     };
+  }
+};
+
+export const fetchLanguage = async (): Promise<
+  ApiAction<Pick<Setting, 'language'>>
+> => {
+  try {
+    const settings = await prisma.setting.findUnique({
+      where: {
+        key: 'SETTING',
+      },
+    });
+    if (!settings) throw new Error('Settings not found');
+
+    const { language } = settings;
+
+    return createApiActionResponse200({ language });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : 'Internal Server Error';
+
+    return createApiActionResponse500(message);
+  }
+};
+
+export const updateLanguage = async (
+  args: Pick<Setting, 'language'>
+): Promise<ApiAction<Pick<Setting, 'language'>>> => {
+  try {
+    const settings = await prisma.setting.update({
+      where: {
+        key: 'SETTING',
+      },
+      data: args,
+    });
+
+    const { language } = settings;
+
+    return createApiActionResponse200({ language });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : 'Internal Server Error';
+
+    return createApiActionResponse500(message);
   }
 };

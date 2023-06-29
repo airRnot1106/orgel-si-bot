@@ -18,7 +18,9 @@ export default {
       'ja': descriptionJa,
     }),
   execute: async (interaction) => {
-    const settings = await (await apiClient.api.settings.$get()).json();
+    const settings = await (
+      await apiClient.api.settings.language.$get()
+    ).json();
     if (settings.status !== 200) {
       // eslint-disable-next-line no-console
       console.error(settings);
