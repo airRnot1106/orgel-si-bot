@@ -5,6 +5,7 @@ import ja from '@/i18n/ja';
 
 export interface IMessages {
   hello: {
+    description: () => string;
     content: () => string;
   };
   settings: {

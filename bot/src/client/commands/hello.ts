@@ -5,17 +5,14 @@ import type { SlashCommand } from '@/types/command';
 import { I18n } from '@/i18n';
 import { apiClient } from '@/libs/apiClient';
 
-const descriptionEn = 'Hello Orgel!';
-const descriptionJa = 'こんにちは、Orgel!';
-
 export default {
   name: 'hello',
   data: new SlashCommandBuilder()
     .setName('hello')
-    .setDescription(descriptionEn)
+    .setDescription(I18n.t('EN').hello.description())
     .setDescriptionLocalizations({
-      'en-US': descriptionEn,
-      'ja': descriptionJa,
+      'en-US': I18n.t('EN').hello.description(),
+      'ja': I18n.t('JA').hello.description(),
     }),
   execute: async (interaction) => {
     const settings = await (
