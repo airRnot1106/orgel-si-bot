@@ -36,4 +36,4 @@ export default {
       ephemeral: false,
     });
   },
-} satisfies SlashCommand;
+} as const satisfies SlashCommand;
