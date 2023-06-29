@@ -23,4 +23,25 @@ export default {
       },
     },
   },
+  info: {
+    description: () => 'Fetch the information of the specified video',
+    options: {
+      video_url: {
+        description: () => 'Youtube Video URL',
+        invalid: () => 'Invalid URL. Please enter a valid URL.',
+      },
+    },
+    content: ({ title, description, author }) =>
+      `
+:movie_camera:**Video Info**:movie_camera:
+**Title**
+${title}
+
+**Description**
+${description}
+
+**Author**
+${author}
+`,
+  },
 } satisfies IMessages;

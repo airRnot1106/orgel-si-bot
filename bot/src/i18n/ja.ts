@@ -23,4 +23,25 @@ export default {
       },
     },
   },
+  info: {
+    description: () => '指定した動画の情報を取得します',
+    options: {
+      video_url: {
+        description: () => 'Youtubeの動画URL',
+        invalid: () => '無効なURLです。有効なURLを入力してください。',
+      },
+    },
+    content: ({ title, description, author }) =>
+      `
+:movie_camera:**動画情報**:movie_camera:
+**タイトル**
+${title}
+
+**説明**
+${description}
+
+**チャンネル**
+${author}
+`,
+  },
 } satisfies IMessages;
