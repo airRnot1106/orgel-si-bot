@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  client:
+    build:
+      context: .
+      dockerfile: .docker/client/Dockerfile.dev
+    env_file:
+      - ./.env.development.local
+    volumes:
+      - ./bot/src:/app/src
+  server:
+    build:
+      context: .
+      dockerfile: .docker/server/Dockerfile.dev
+    env_file:
+      - ./.env.development.local
+    volumes:
+      - ./bot/src:/app/src
+      - ./bot/prisma:/app/prisma
+    ports:
+      - "3000:3000"
+      - "5555:5555"
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./db/tmp/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"

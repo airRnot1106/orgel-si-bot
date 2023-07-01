@@ -1,0 +1,42 @@
+{
+  "name": "@orgel-si/bot",
+  "scripts": {
+    "client:start": "node bot/dist/index.js",
+    "client:dev": "nodemon -r tsconfig-paths/register --transpile-only --ignore \"**/server/*.ts\" src/client/index.ts",
+    "server:start": "nodemon -P app/backend/tsconfig.json -r tsconfig-paths/register --transpile-only src/server/index.ts",
+    "server:dev": "nodemon -P app/backend/tsconfig.json -r tsconfig-paths/register --transpile-only --ignore \"**/client/*.ts\" src/server/index.ts"
+  },
+  "dependencies": {
+    "@discordjs/builders": "^1.6.3",
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/voice": "^0.16.0",
+    "@hono/node-server": "^1.0.2",
+    "@hono/zod-validator": "^0.1.3",
+    "@prisma/client": "^4.16.1",
+    "discord.js": "^14.11.0",
+    "hono": "^3.2.6",
+    "tweetnacl": "^1.0.3",
+    "ytdl-core": "^4.11.4",
+    "zod": "^3.21.4",
+    "zod-prisma-types": "^2.7.4"
+  },
+  "devDependencies": {
+    "@tsconfig/strictest": "^2.0.1",
+    "@types/node": "^20.3.2",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.43.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8",
+    "prisma": "^4.16.1",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.1.3"
+  }
+}

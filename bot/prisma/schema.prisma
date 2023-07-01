@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+}
+
+generator zod {
+  provider                  = "pnpm dlx zod-prisma-types"
+  output                    = "../src/schema/generated/prisma"
+  createRelationValuesTypes = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Language {
+  EN
+  JA
+}
+
+model Setting {
+  key      String   @id @default("SETTING")
+  language Language @default(EN)
+}
+
+model Channel {
+  id    String  @id
+  name  String
+  user  String
+  url   String
+  Video Video[]
+}
+
+model Video {
+  id          String    @id
+  title       String
+  description String
+  url         String
+  channel     Channel   @relation(fields: [channelId], references: [id])
+  channelId   String
+  Request     Request[]
+}
+
+model User {
+  id      String    @id
+  name    String
+  Request Request[]
+}
+
+model Request {
+  id          String    @id @default(uuid())
+  video       Video     @relation(fields: [videoId], references: [id])
+  videoId     String
+  requestedBy User      @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime  @default(now())
+  Queue       Queue[]
+  History     History[]
+}
+
+model Queue {
+  id        String  @id @default(uuid())
+  request   Request @relation(fields: [requestId], references: [id])
+  requestId String
+  order     Int
+}
+
+model History {
+  id        String   @id @default(uuid())
+  request   Request  @relation(fields: [requestId], references: [id])
+  requestId String
+  playedAt  DateTime @default(now())
+}
