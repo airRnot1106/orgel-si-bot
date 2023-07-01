@@ -6,6 +6,7 @@ import type {
   Video,
 } from '@/schema/generated/prisma';
 import type { ApiAction } from '@/types/api';
+import type { RemoveArrayKeys } from '@/types/util';
 
 import prisma from '@/libs/prisma';
 import {
@@ -13,9 +14,9 @@ import {
   createApiActionResponse500,
 } from '@/utils/api';
 
-export const fetchQueue = async (): Promise<
-  ApiAction<QueueWithRelations[]>
-> => {
+type QueueFull = RemoveArrayKeys<QueueWithRelations>;
+
+export const fetchQueue = async (): Promise<ApiAction<QueueFull[]>> => {
   try {
     await prisma.queue.deleteMany({
       where: {
@@ -38,12 +39,6 @@ export const fetchQueue = async (): Promise<
               },
             },
             requestedBy: true,
-            History: true,
-            Queue: {
-              include: {
-                request: true,
-              },
-            },
           },
         },
       },
@@ -61,7 +56,7 @@ const createQueue = async (args: {
   user: User;
   channel: Channel;
   video: Video;
-}): Promise<QueueWithRelations> => {
+}): Promise<QueueFull> => {
   const { order, user, channel, video } = args;
 
   const queue = await prisma.queue.create({
@@ -118,12 +113,6 @@ const createQueue = async (args: {
             },
           },
           requestedBy: true,
-          History: true,
-          Queue: {
-            include: {
-              request: true,
-            },
-          },
         },
       },
     },
@@ -136,7 +125,7 @@ export const pushToQueue = async (args: {
   user: User;
   channel: Channel;
   video: Video;
-}): Promise<ApiAction<QueueWithRelations>> => {
+}): Promise<ApiAction<QueueFull>> => {
   try {
     const { user, channel, video } = args;
     const lastOrder = await prisma.queue
@@ -166,7 +155,7 @@ export const interruptToQueue = async (args: {
   user: User;
   channel: Channel;
   video: Video;
-}): Promise<ApiAction<QueueWithRelations>> => {
+}): Promise<ApiAction<QueueFull>> => {
   try {
     await prisma.queue.updateMany({
       data: {
@@ -230,31 +219,28 @@ export const decreaseOrder = async (): Promise<ApiAction<Queue[]>> => {
 };
 
 export const fetchCurrentVideo = async (): Promise<
-  ApiAction<{
-    video: Video;
-    requestedBy: User;
-  } | null>
+  ApiAction<QueueFull | null>
 > => {
   try {
-    const zeroOrder = await prisma.queue.findFirst({
+    const zeroOrderQueue = await prisma.queue.findFirst({
       where: {
         order: 0,
       },
-      select: {
+      include: {
         request: {
-          select: {
-            video: true,
+          include: {
+            video: {
+              include: {
+                channel: true,
+              },
+            },
             requestedBy: true,
           },
         },
       },
     });
-    if (!zeroOrder) return createApiActionResponse200(null);
 
-    const currentVideo = zeroOrder.request.video;
-    const { requestedBy } = zeroOrder.request;
-
-    return createApiActionResponse200({ video: currentVideo, requestedBy });
+    return createApiActionResponse200(zeroOrderQueue);
   } catch (e) {
     const message = e instanceof Error ? e.message : 'Internal Server Error';
 

@@ -966,14 +966,14 @@ export const QueueUncheckedUpdateManyInputSchema: z.ZodType<Prisma.QueueUnchecke
 
 export const HistoryCreateInputSchema: z.ZodType<Prisma.HistoryCreateInput> = z.object({
   id: z.string().uuid().optional(),
-  playedAt: z.coerce.date(),
+  playedAt: z.coerce.date().optional(),
   request: z.lazy(() => RequestCreateNestedOneWithoutHistoryInputSchema)
 }).strict();
 
 export const HistoryUncheckedCreateInputSchema: z.ZodType<Prisma.HistoryUncheckedCreateInput> = z.object({
   id: z.string().uuid().optional(),
   requestId: z.string(),
-  playedAt: z.coerce.date()
+  playedAt: z.coerce.date().optional()
 }).strict();
 
 export const HistoryUpdateInputSchema: z.ZodType<Prisma.HistoryUpdateInput> = z.object({
@@ -991,7 +991,7 @@ export const HistoryUncheckedUpdateInputSchema: z.ZodType<Prisma.HistoryUnchecke
 export const HistoryCreateManyInputSchema: z.ZodType<Prisma.HistoryCreateManyInput> = z.object({
   id: z.string().uuid().optional(),
   requestId: z.string(),
-  playedAt: z.coerce.date()
+  playedAt: z.coerce.date().optional()
 }).strict();
 
 export const HistoryUpdateManyMutationInputSchema: z.ZodType<Prisma.HistoryUpdateManyMutationInput> = z.object({
@@ -1961,12 +1961,12 @@ export const QueueCreateManyRequestInputEnvelopeSchema: z.ZodType<Prisma.QueueCr
 
 export const HistoryCreateWithoutRequestInputSchema: z.ZodType<Prisma.HistoryCreateWithoutRequestInput> = z.object({
   id: z.string().uuid().optional(),
-  playedAt: z.coerce.date()
+  playedAt: z.coerce.date().optional()
 }).strict();
 
 export const HistoryUncheckedCreateWithoutRequestInputSchema: z.ZodType<Prisma.HistoryUncheckedCreateWithoutRequestInput> = z.object({
   id: z.string().uuid().optional(),
-  playedAt: z.coerce.date()
+  playedAt: z.coerce.date().optional()
 }).strict();
 
 export const HistoryCreateOrConnectWithoutRequestInputSchema: z.ZodType<Prisma.HistoryCreateOrConnectWithoutRequestInput> = z.object({
@@ -2236,7 +2236,7 @@ export const QueueCreateManyRequestInputSchema: z.ZodType<Prisma.QueueCreateMany
 
 export const HistoryCreateManyRequestInputSchema: z.ZodType<Prisma.HistoryCreateManyRequestInput> = z.object({
   id: z.string().uuid().optional(),
-  playedAt: z.coerce.date()
+  playedAt: z.coerce.date().optional()
 }).strict();
 
 export const QueueUpdateWithoutRequestInputSchema: z.ZodType<Prisma.QueueUpdateWithoutRequestInput> = z.object({

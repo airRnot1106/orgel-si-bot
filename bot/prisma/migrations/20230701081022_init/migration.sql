@@ -61,7 +61,7 @@ CREATE TABLE "Queue" (
 CREATE TABLE "History" (
     "id" TEXT NOT NULL,
     "requestId" TEXT NOT NULL,
-    "playedAt" TIMESTAMP(3) NOT NULL,
+    "playedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "History_pkey" PRIMARY KEY ("id")
 );

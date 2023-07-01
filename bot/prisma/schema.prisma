@@ -73,5 +73,5 @@ model History {
   id        String   @id @default(uuid())
   request   Request  @relation(fields: [requestId], references: [id])
   requestId String
-  playedAt  DateTime
+  playedAt  DateTime @default(now())
 }

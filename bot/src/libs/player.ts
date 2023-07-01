@@ -62,7 +62,7 @@ export const turnScrew = async (
   if (queueRes.status !== 200) {
     // eslint-disable-next-line no-console
     console.error(queueRes);
-    return;
+    throw new Error('Failed to fetch queue');
   }
 
   const queueCount = queueRes.data.length;
@@ -71,16 +71,16 @@ export const turnScrew = async (
     return;
   }
 
-  const currentRequestRes = await (
+  const currentQueueRes = await (
     await apiClient.api.queue.current.$get()
   ).json();
-  if (currentRequestRes.status !== 200) {
+  if (currentQueueRes.status !== 200) {
     // eslint-disable-next-line no-console
-    console.error(currentRequestRes);
-    return;
+    console.error(currentQueueRes);
+    throw new Error('Failed to fetch current queue');
   }
 
-  const currentRequest = currentRequestRes.data;
+  const currentRequest = currentQueueRes.data?.request;
   if (!currentRequest) {
     await apiClient.api.queue['decrease-order'].$patch();
     await turnScrew(connection, player, textChannel);
@@ -106,7 +106,7 @@ export const turnScrew = async (
   if (languageRes.status !== 200) {
     // eslint-disable-next-line no-console
     console.error(languageRes);
-    return;
+    throw new Error('Failed to get language');
   }
 
   const { language } = languageRes.data;
@@ -119,6 +119,20 @@ export const turnScrew = async (
   });
 
   player.play(resource);
+
+  const historyRes = await (
+    await apiClient.api.history.$post({
+      json: {
+        requestId: currentRequest.id,
+      },
+    })
+  ).json();
+  if (historyRes.status !== 200) {
+    // eslint-disable-next-line no-console
+    console.error(historyRes);
+    throw new Error('Failed to add history');
+  }
+
   await entersState(player, AudioPlayerStatus.Playing, 10 * 1000);
   await entersState(player, AudioPlayerStatus.Idle, 24 * 60 * 60 * 1000);
 
