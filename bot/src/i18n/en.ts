@@ -3,6 +3,22 @@ import type { IMessages } from '@/i18n';
 export default {
   common: {
     internal_server_error: () => 'Internal Server Error.',
+    member: {
+      invalid: () =>
+        'Invalid Member. Please execute again with a valid member.',
+    },
+    text: {
+      not_found: () =>
+        'Text channel is not found. Please execute again in a text channel.',
+    },
+    voice: {
+      not_connected: () => 'Please join the Voice Channel first.',
+    },
+    video: {
+      failed: {
+        fetch: () => 'Failed to fetch the video.',
+      },
+    },
   },
   hello: {
     description: () => 'Hello Orgel!',
@@ -43,5 +59,30 @@ ${description}
 **Author**
 ${author}
 `,
+  },
+  play: {
+    description: () => 'Play the specified video',
+    contents: {
+      push: ({ title }) => `Added ${title} to the queue.`,
+      interrupt: ({ title }) => `Interrupted ${title}.`,
+      play: ({ title, user }) =>
+        `
+:musical_note: Now Playing :musical_note:
+**Title**
+${title}
+
+${user}
+`,
+    },
+    options: {
+      video_url: {
+        description: () => 'Youtube Video URL',
+        invalid: () => 'Invalid URL. Please enter a valid URL.',
+      },
+      interrupt: {
+        description: () => 'Interrupt at the head of the queue',
+        invalid: () => 'Invalid option. Please enter a valid option.',
+      },
+    },
   },
 } satisfies IMessages;

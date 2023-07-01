@@ -6,6 +6,20 @@ import ja from '@/i18n/ja';
 export interface IMessages {
   common: {
     internal_server_error: () => string;
+    member: {
+      invalid: () => string;
+    };
+    text: {
+      not_found: () => string;
+    };
+    voice: {
+      not_connected: () => string;
+    };
+    video: {
+      failed: {
+        fetch: () => string;
+      };
+    };
   };
   hello: {
     description: () => string;
@@ -38,6 +52,24 @@ export interface IMessages {
       description: string;
       author: string;
     }) => string;
+  };
+  play: {
+    description: () => string;
+    contents: {
+      push: (args: { title: string }) => string;
+      interrupt: (args: { title: string }) => string;
+      play: (args: { title: string; user: string }) => string;
+    };
+    options: {
+      video_url: {
+        description: () => string;
+        invalid: () => string;
+      };
+      interrupt: {
+        description: () => string;
+        invalid: () => string;
+      };
+    };
   };
 }
 

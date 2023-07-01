@@ -27,6 +27,7 @@ module.exports = {
   rules: {
     /* eslint */
     'consistent-return': 'off',
+    'no-underscore-dangle': 'off',
     /* typescript */
     '@typescript-eslint/no-unused-vars': [
       'warn',

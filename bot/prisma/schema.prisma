@@ -7,9 +7,9 @@ generator client {
 }
 
 generator zod {
-  provider         = "pnpm dlx zod-prisma-types"
-  output           = "../src/schema/generated/prisma"
-  createInputTypes = false
+  provider                  = "pnpm dlx zod-prisma-types"
+  output                    = "../src/schema/generated/prisma"
+  createRelationValuesTypes = true
 }
 
 datasource db {

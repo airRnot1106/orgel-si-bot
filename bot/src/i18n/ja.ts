@@ -3,6 +3,22 @@ import type { IMessages } from '@/i18n';
 export default {
   common: {
     internal_server_error: () => '致命的なエラーが発生しました。',
+    member: {
+      invalid: () =>
+        '無効なメンバーです。有効なメンバーで再度実行してください。',
+    },
+    text: {
+      not_found: () =>
+        'テキストチャンネルが見つかりませんでした。テキストチャンネルで実行してください。',
+    },
+    voice: {
+      not_connected: () => '先にボイスチャンネルに参加してください。',
+    },
+    video: {
+      failed: {
+        fetch: () => '動画の取得に失敗しました。',
+      },
+    },
   },
   hello: {
     description: () => 'こんにちは、Orgel!',
@@ -43,5 +59,31 @@ ${description}
 **チャンネル**
 ${author}
 `,
+  },
+  play: {
+    description: () => '指定した動画を再生します',
+    contents: {
+      push: ({ title }) => `${title}をキューに追加しました。`,
+      interrupt: ({ title }) => `${title}を割り込み再生します。`,
+      play: ({ title, user }) =>
+        `
+:musical_note: Now Playing :musical_note:
+*タイトル*
+${title}
+
+${user}
+`,
+    },
+    options: {
+      video_url: {
+        description: () => 'Youtubeの動画URL',
+        invalid: () => '無効なURLです。有効なURLを入力してください。',
+      },
+      interrupt: {
+        description: () => 'キューの先頭に割り込みます',
+        invalid: () =>
+          '無効なオプションです。有効なオプションを入力してください。',
+      },
+    },
   },
 } satisfies IMessages;
