@@ -76,6 +76,10 @@ export interface IMessages {
     content: (args: { user: string }) => string;
     failed: () => string;
   };
+  resume: {
+    description: () => string;
+    content: () => string;
+  };
 }
 
 const messages = {

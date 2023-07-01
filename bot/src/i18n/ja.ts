@@ -91,4 +91,8 @@ ${user}
     content: ({ user }) => `${user}がスキップしました。`,
     failed: () => 'スキップに失敗しました。',
   },
+  resume: {
+    description: () => '再生を再開します',
+    content: () => '再生を再開します...',
+  },
 } satisfies IMessages;

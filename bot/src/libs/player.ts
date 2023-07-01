@@ -53,6 +53,15 @@ export const joinVoiceChannel = (voiceChannel: VoiceBasedChannel) => {
   return connection;
 };
 
+const waitReadyConnection = async (connection: VoiceConnection) =>
+  new Promise<void>((resolve) => {
+    setInterval(() => {
+      if (connection.state.status === 'ready') {
+        resolve();
+      }
+    }, 100);
+  });
+
 export const turnScrew = async (
   connection: VoiceConnection,
   player: DiscordAudioPlayer,
@@ -66,7 +75,9 @@ export const turnScrew = async (
   }
 
   const queueCount = queueRes.data.length;
+
   if (queueCount <= 0) {
+    await waitReadyConnection(connection);
     connection.disconnect();
     return;
   }

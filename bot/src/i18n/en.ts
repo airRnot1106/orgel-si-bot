@@ -90,4 +90,8 @@ ${user}
     content: ({ user }) => `${user} skipped the current video.`,
     failed: () => 'Failed to skip the current video.',
   },
+  resume: {
+    description: () => 'Resume playback',
+    content: () => 'Resume playback...',
+  },
 } satisfies IMessages;
