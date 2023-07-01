@@ -8,7 +8,9 @@ import {
   createApiActionResponse500,
 } from '@/utils/api';
 
-export const fetchHistory = async (args: { historyId: string }) => {
+export const fetchHistory = async (args: {
+  historyId: string;
+}): Promise<ApiAction<RemoveArrayKeys<HistoryWithRelations>[]>> => {
   try {
     const { historyId } = args;
 
@@ -30,14 +32,16 @@ export const fetchHistory = async (args: { historyId: string }) => {
       },
     });
 
-    return createApiActionResponse200(history);
+    return createApiActionResponse200(history ? [history] : []);
   } catch (e) {
     const message = e instanceof Error ? e.message : 'Internal Server Error';
     return createApiActionResponse500(message);
   }
 };
 
-export const fetchHistories = async (args: { limit?: number }) => {
+export const fetchHistories = async (args: {
+  limit?: number | undefined;
+}): Promise<ApiAction<RemoveArrayKeys<HistoryWithRelations>[]>> => {
   try {
     const { limit = 100000 } = args;
 

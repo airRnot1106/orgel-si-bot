@@ -1,6 +1,7 @@
 import type { SlashCommand } from '@/types/command';
 
 import hello from '@/client/commands/hello';
+import history from '@/client/commands/history';
 import info from '@/client/commands/info';
 import play from '@/client/commands/play';
 import resume from '@/client/commands/resume';
@@ -14,4 +15,5 @@ export default [
   play,
   skip,
   resume,
+  history,
 ] as const satisfies ReadonlyArray<SlashCommand>;

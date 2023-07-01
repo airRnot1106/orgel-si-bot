@@ -94,4 +94,20 @@ ${user}
     description: () => 'Resume playback',
     content: () => 'Resume playback...',
   },
+  history: {
+    description: () => 'Show the playback history',
+    content: ({ histories }) =>
+      `
+:notebook_with_decorative_cover: **Playback History**
+${histories
+  .map(({ title, user }, index) => `${index + 1}. ${title} - ${user}`)
+  .join('\n')}
+`,
+    options: {
+      limit: {
+        description: () => 'Number of histories to display',
+        invalid: () => 'Invalid option. Please enter a valid option.',
+      },
+    },
+  },
 } satisfies IMessages;

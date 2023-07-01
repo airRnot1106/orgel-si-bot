@@ -7,6 +7,7 @@ import {
   fetchHistories,
   fetchHistory,
 } from '@/libs/api/history';
+import { safeParseSchema } from '@/libs/zod';
 import { createApiActionResponse400 } from '@/utils/api';
 
 export const history = new Hono()
@@ -15,8 +16,8 @@ export const history = new Hono()
     zValidator(
       'query',
       z.object({
-        id: z.string().optional(),
-        limit: z.number().optional(),
+        id: z.string(),
+        limit: z.string(),
       }),
       (result, c) => {
         if (!result.success) {
@@ -25,12 +26,25 @@ export const history = new Hono()
         }
       }
     ),
-    async (c) => {
-      const { id, limit } = c.req.valid('query');
 
-      const res = id
-        ? await fetchHistory({ historyId: id })
-        : await fetchHistories({ limit });
+    async (c) => {
+      const { id, limit: limitString } = c.req.valid('query');
+
+      const parsedLimit = safeParseSchema(
+        z.number().int(),
+        Number(limitString)
+      );
+      if (!parsedLimit.ok) {
+        const res = createApiActionResponse400(parsedLimit.error.message);
+        return c.jsonT(res, res.status);
+      }
+
+      const limit = parsedLimit.data;
+
+      const res =
+        id !== ''
+          ? await fetchHistory({ historyId: id })
+          : await fetchHistories({ limit });
       return c.jsonT(res, res.status);
     }
   )

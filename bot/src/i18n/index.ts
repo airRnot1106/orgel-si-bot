@@ -80,6 +80,16 @@ export interface IMessages {
     description: () => string;
     content: () => string;
   };
+  history: {
+    description: () => string;
+    content: (args: { histories: { title: string; user: string }[] }) => string;
+    options: {
+      limit: {
+        description: () => string;
+        invalid: () => string;
+      };
+    };
+  };
 }
 
 const messages = {

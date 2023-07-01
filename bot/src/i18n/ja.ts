@@ -95,4 +95,21 @@ ${user}
     description: () => '再生を再開します',
     content: () => '再生を再開します...',
   },
+  history: {
+    description: () => '再生履歴を表示します',
+    content: ({ histories }) =>
+      `
+:notebook_with_decorative_cover: **再生履歴**
+${histories
+  .map(({ title, user }, index) => `${index + 1}. ${title} - ${user}`)
+  .join('\n')}
+`,
+    options: {
+      limit: {
+        description: () => '表示する履歴の数',
+        invalid: () =>
+          '無効なオプションです。有効なオプションを入力してください。',
+      },
+    },
+  },
 } satisfies IMessages;
