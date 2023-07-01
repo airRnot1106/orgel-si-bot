@@ -85,4 +85,9 @@ ${user}
       },
     },
   },
+  skip: {
+    description: () => 'Skip the current video',
+    content: ({ user }) => `${user} skipped the current video.`,
+    failed: () => 'Failed to skip the current video.',
+  },
 } satisfies IMessages;

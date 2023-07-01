@@ -86,4 +86,9 @@ ${user}
       },
     },
   },
+  skip: {
+    description: () => '現在再生中の動画をスキップします',
+    content: ({ user }) => `${user}がスキップしました。`,
+    failed: () => 'スキップに失敗しました。',
+  },
 } satisfies IMessages;

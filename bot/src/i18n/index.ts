@@ -71,6 +71,11 @@ export interface IMessages {
       };
     };
   };
+  skip: {
+    description: () => string;
+    content: (args: { user: string }) => string;
+    failed: () => string;
+  };
 }
 
 const messages = {

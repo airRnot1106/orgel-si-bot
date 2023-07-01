@@ -16,6 +16,7 @@ import type { TextBasedChannel, VoiceBasedChannel } from 'discord.js';
 
 import { I18n } from '@/i18n';
 import { apiClient } from '@/libs/apiClient';
+import { err, ok } from '@/utils/result';
 
 class AudioPlayer {
   // eslint-disable-next-line no-use-before-define
@@ -140,4 +141,16 @@ export const setupPlayer = async (
   connection.subscribe(player);
 
   await turnScrew(connection, player, textChannel);
+};
+
+export const skip = () => {
+  const { player } = AudioPlayer.instance;
+
+  if (player.state.status !== AudioPlayerStatus.Playing) {
+    return err(new Error('Not playing'));
+  }
+
+  player.stop();
+
+  return ok(null);
 };
