@@ -110,4 +110,17 @@ ${histories
       },
     },
   },
+  queue: {
+    description: () => 'Show the playback queue',
+    contents: {
+      empty: () => 'The queue is empty.',
+      content: ({ items }) =>
+        `
+:headphones: **Playback Queue**
+${items
+  .map(({ title, user }, index) => `${index + 1}. ${title} - ${user}`)
+  .join('\n')}
+`,
+    },
+  },
 } satisfies IMessages;

@@ -4,6 +4,7 @@ import hello from '@/client/commands/hello';
 import history from '@/client/commands/history';
 import info from '@/client/commands/info';
 import play from '@/client/commands/play';
+import queue from '@/client/commands/queue';
 import resume from '@/client/commands/resume';
 import settings from '@/client/commands/settings';
 import skip from '@/client/commands/skip';
@@ -16,4 +17,5 @@ export default [
   skip,
   resume,
   history,
+  queue,
 ] as const satisfies ReadonlyArray<SlashCommand>;

@@ -112,4 +112,17 @@ ${histories
       },
     },
   },
+  queue: {
+    description: () => '予約リストを表示します',
+    contents: {
+      empty: () => '予約リストは空です。',
+      content: ({ items }) =>
+        `
+:headphones: **予約リスト**
+${items
+  .map(({ title, user }, index) => `${index + 1}. ${title} - ${user}`)
+  .join('\n')}
+`,
+    },
+  },
 } satisfies IMessages;
