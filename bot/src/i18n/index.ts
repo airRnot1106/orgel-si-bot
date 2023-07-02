@@ -90,6 +90,13 @@ export interface IMessages {
       };
     };
   };
+  queue: {
+    description: () => string;
+    contents: {
+      empty: () => string;
+      content: (args: { items: { title: string; user: string }[] }) => string;
+    };
+  };
 }
 
 const messages = {
