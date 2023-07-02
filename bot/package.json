@@ -6,7 +6,8 @@
     "server:start": "nodemon -P app/backend/tsconfig.json -r tsconfig-paths/register --transpile-only --ignore \"**/client/*.ts\" src/server/index.ts",
     "server:dev": "nodemon -P app/backend/tsconfig.json -r tsconfig-paths/register --transpile-only --ignore \"**/client/*.ts\" src/server/index.ts",
     "prisma:migrate": "prisma migrate dev --name init",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "prisma:init": "pnpm prisma:migrate && pnpm prisma:generate"
   },
   "dependencies": {
     "@discordjs/builders": "^1.6.3",
