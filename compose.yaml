@@ -3,17 +3,18 @@ services:
   client:
     build:
       context: .
-      dockerfile: .docker/client/Dockerfile.dev
+      dockerfile: .docker/client/Dockerfile
     env_file:
-      - ./.env.development.local
+      - ./.env
     volumes:
       - ./bot/src:/app/src
+    restart: always
   server:
     build:
       context: .
-      dockerfile: .docker/server/Dockerfile.dev
+      dockerfile: .docker/server/Dockerfile
     env_file:
-      - ./.env.development.local
+      - ./.env
     environment:
       - YTDL_NO_UPDATE
     volumes:
@@ -22,6 +23,7 @@ services:
     ports:
       - "3000:3000"
       - "5555:5555"
+    restart: always
   db:
     image: postgres:latest
     environment:
